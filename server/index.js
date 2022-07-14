@@ -20,14 +20,23 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 
-app.get("/", (req, res) => {
-  const sqlInsert =
-    "INSERT INTO contact (name, email, contact) VALUES ('Meshack','Meshack@gmail.com', '9237943210')";
-  con.query(sqlInsert, (error, result) => {
-    if (error) console.log("error", error);
-    console.log("result", result);
-    res.send("Hello World");
+app.use("/api/get", (req, res) => {
+  const sqlGet = "SELECT * FROM contact";
+  con.query(sqlGet, (err, result) => {
+    if (err) throw err;
+    res.json(result);
   });
+});
+
+app.get("/", (req, res) => {
+  //   const sqlInsert =
+  //     "INSERT INTO contact (name, email, contact) VALUES ('Meshack','Meshack@gmail.com', '9237943210')";
+  //   con.query(sqlInsert, (error, result) => {
+  //     if (error) console.log("error", error);
+  //     console.log("result", result);
+  //     res.send("Hello World");
+  //   });
+  res.send("Hello World");
 });
 
 app.listen(5000, () => {
